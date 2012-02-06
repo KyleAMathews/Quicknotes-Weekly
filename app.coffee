@@ -2,6 +2,8 @@
 
 express = require('express')
 sendEmail = require('./sendEmail').sendEmail
+redis = require('redis')
+rclient = redis.createClient()
 
 app = module.exports = express.createServer()
 
@@ -21,8 +23,20 @@ app.configure 'development', ->
 app.configure 'production', ->
   app.use(express.errorHandler())
 
-app.get '/', (request, response) ->
-    response.send('Hello World!')
+app.get '/', (req, res) ->
+  res.send('Hello World!')
+
+app.post '/mailgun', (req, res) ->
+  console.log JSON.stringify(req.body)
+  # save email info to redis into a set? one set per quicknote?
+  rclient.hset('quicknotes-testing', req.body['Message-Id'], JSON.stringify(req.body), redis.print)
+  res.send 'ok'
+
+app.get '/email_responses', (req, res) ->
+  # retch all emails and spit out
+  rclient.hgetall 'quicknotes-testing', (err, emails) ->
+    res.json emails
+
 
 port = process.env.PORT || 3000
 app.listen port, ->
