@@ -2,8 +2,8 @@
   "name": "Quicknotes",
   "version": "0.0.1",
   "dependencies": {
-    "express": "2.5.5",
-    "request": "2.9.100",
-    "redis": "0.7.1"
+    "express": "2.5.x",
+    "request": "2.9.x",
+    "redis": "0.7.x"
   }
 }
