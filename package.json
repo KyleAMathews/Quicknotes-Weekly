@@ -4,6 +4,8 @@
   "dependencies": {
     "express": "2.5.x",
     "request": "2.9.x",
+    "moment": "1.x.x",
+    "cron": "0.1.x",
     "redis": "0.7.x"
   }
 }
