@@ -5,7 +5,7 @@
     "express": "2.5.x",
     "request": "2.9.x",
     "moment": "1.x.x",
-    "cron": "0.1.x",
+    "cron": "0.x.x",
     "redis": "0.7.x"
   }
 }

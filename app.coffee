@@ -1,14 +1,16 @@
 # Module dependencies.
-
 express = require('express')
 sendEmail = require('./sendEmail').sendEmail
+mailgunIntegration = require('./mailgun_integration')
+require('./email_cron')
 redis = require('redis')
 rclient = redis.createClient()
 
+questions_routes = require('./routes/questions')
+
 app = module.exports = express.createServer()
 
-# Configuration
-
+# Configure Express.
 app.configure ->
   app.set('views', __dirname + '/views')
   app.set('view engine', 'jade')
@@ -23,21 +25,20 @@ app.configure 'development', ->
 app.configure 'production', ->
   app.use(express.errorHandler())
 
+# TODO this should launch the backbone admin ui
 app.get '/', (req, res) ->
   res.send('Hello World!')
 
-app.post '/mailgun', (req, res) ->
-  console.log JSON.stringify(req.body)
-  # save email info to redis into a set? one set per quicknote?
-  rclient.hset('quicknotes-testing', req.body['Message-Id'], JSON.stringify(req.body), redis.print)
-  res.send 'ok'
+# API for admin api.
+app.get '/questions', questions_routes.getQuestions
+app.put '/questions', questions_routes.putQuestions
+app.post '/questions', questions_routes.postQuestions
 
-app.get '/email_responses', (req, res) ->
-  # retch all emails and spit out
-  rclient.hgetall 'quicknotes-testing', (err, emails) ->
-    res.json emails
+# Respond to incoming emails from Mailgun.
+app.post '/mailgun', mailgunIntegration
 
-
+# Start the express server.
 port = process.env.PORT || 3000
 app.listen port, ->
   console.log("Listening on " + port)
+

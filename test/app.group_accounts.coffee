@@ -26,4 +26,3 @@ describe 'group accounts:', ->
         ga.exists 'testing-testing-testing', (res) ->
           res.should.not.be.ok
           done()
-
