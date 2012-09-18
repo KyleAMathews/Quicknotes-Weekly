@@ -8,7 +8,7 @@ rclient = redis.createClient()
 
 questions_routes = require('./routes/questions')
 
-app = module.exports = express.createServer()
+app = express()
 
 # Configure Express.
 app.configure ->
@@ -27,7 +27,7 @@ app.configure 'production', ->
 
 # TODO this should launch the backbone admin ui
 app.get '/', (req, res) ->
-  res.send('Hello World!')
+  res.render('questions')
 
 # API for admin api.
 app.get '/questions', questions_routes.getQuestions
