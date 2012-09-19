@@ -5,7 +5,7 @@
     "express": "3.x.x",
     "request": "2.x.x",
     "jade": "0.x.x",
-    "mongoose": "2.6.x",
+    "mongoose": "3.x.x",
     "moment": "1.x.x",
     "cron": "0.x.x",
     "redis": "0.7.x"

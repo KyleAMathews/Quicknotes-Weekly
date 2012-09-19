@@ -1,5 +1,5 @@
 mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/quicknotes')
+mongoose.createConnection('mongodb://localhost/quicknotes')
 
 # Setup MongoDB schemas.
 Schema = mongoose.Schema
