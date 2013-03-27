@@ -1,10 +1,7 @@
 # Module dependencies.
 require('./question_schema')
 express = require('express')
-mailgunIntegration = require('./mailgun_integration')
 require('./email_cron')
-redis = require('redis')
-rclient = redis.createClient()
 
 questions_routes = require('./routes/questions')
 
