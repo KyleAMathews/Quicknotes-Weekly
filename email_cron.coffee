@@ -69,6 +69,7 @@ sendEmails = ->
 job = new cronJob
   cronTime: '00 00 17 * * 4' # Run every Wednesday at 5pm MST (server is set to Utah time).
   onTick: sendEmails
+  timeZone: "America/Los_Angeles"
 
 job.start()
 nextRun = moment()
