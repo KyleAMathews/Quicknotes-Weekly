@@ -10,6 +10,7 @@
     "cron": "0.x.x",
     "async": "0.1.x",
     "redis": "0.7.x",
-    "coffee-script": "~1.6.2"
+    "coffee-script": "~1.6.2",
+    "time": "~0.9.1"
   }
 }

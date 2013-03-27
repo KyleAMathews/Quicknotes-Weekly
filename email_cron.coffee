@@ -67,7 +67,7 @@ sendEmails = ->
 
 # Send emails every Friday at 8pm
 job = new cronJob
-  cronTime: '00 00 17 * * 4' # Run every Wednesday at 5pm MST (server is set to Utah time).
+  cronTime: '00 00 17 * * 4' # Run every Wednesday at 5pm
   onTick: sendEmails
   timeZone: "America/Los_Angeles"
 
