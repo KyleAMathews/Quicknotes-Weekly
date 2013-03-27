@@ -9,6 +9,7 @@
     "moment": "1.x.x",
     "cron": "0.x.x",
     "async": "0.1.x",
-    "redis": "0.7.x"
+    "redis": "0.7.x",
+    "coffee-script": "~1.6.2"
   }
 }

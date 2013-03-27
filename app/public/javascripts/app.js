@@ -253,7 +253,8 @@ window.require.register("views/question_view", function(exports, require, module
     QuestionView.prototype.events = {
       'dblclick': 'editMode',
       'click button.save-question': 'saveQuestion',
-      'click button.delete-question': 'deleteQuestion'
+      'click button.delete-question': 'deleteQuestion',
+      'keypress input': 'keypressHandler'
     };
 
     QuestionView.prototype.render = function() {
@@ -265,12 +266,19 @@ window.require.register("views/question_view", function(exports, require, module
 
     QuestionView.prototype.renderDblClick = function() {
       this.mode = 'edit';
-      return this.$el.html("<div class='edit-mode'>      <input value='" + (this.model.get('question')) + "' />      <button class='save-question'>Save</button><button class='delete-question'>Delete Question</button>      </div>      ");
+      this.$el.html("<div class='edit-mode'>      <input type='text'>      <button class='save-question'>Save</button><button class='delete-question'>Delete Question</button>      </div>      ");
+      return this.$('input').val(this.model.get('question')).focus();
     };
 
     QuestionView.prototype.editMode = function() {
       if (this.mode === "normal") {
         return this.renderDblClick();
+      }
+    };
+
+    QuestionView.prototype.keypressHandler = function(e) {
+      if (e.which === 13) {
+        return this.saveQuestion();
       }
     };
 
@@ -321,7 +329,7 @@ window.require.register("views/questions_view", function(exports, require, modul
 
     QuestionsView.prototype.events = {
       'click button.add-question': 'addQuestion',
-      'keypress input': 'keypressHandler'
+      'keypress input.new-question': 'keypressHandler'
     };
 
     QuestionsView.prototype.render = function() {
@@ -342,7 +350,7 @@ window.require.register("views/questions_view", function(exports, require, modul
         return _this.saveNewOrder();
       });
       _.defer(function() {
-        return _this.$('input').focus();
+        return _this.$('input.new-question').focus();
       });
       return this;
     };
@@ -355,7 +363,7 @@ window.require.register("views/questions_view", function(exports, require, modul
 
     QuestionsView.prototype.addQuestion = function() {
       var question;
-      question = this.$('input').val();
+      question = this.$('input.new-question').val();
       return this.collection.create({
         question: question,
         order: this.collection.length
@@ -422,7 +430,7 @@ window.require.register("views/templates/questions", function(exports, require, 
     (function() {
       (function() {
       
-        __out.push('<div id="content">\n  <h2>Upcoming questions</h2>\n  <ul class="questions"></ul>\n  <input>\n  <button class="add-question">Add</button>\n</div>\n');
+        __out.push('<div id="content">\n  <h2>Upcoming questions</h2>\n  <ul class="questions"></ul>\n  <input type="text" class="new-question">\n  <button class="add-question">Add</button>\n</div>\n');
       
       }).call(this);
       

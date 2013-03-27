@@ -1,6 +1,6 @@
 <div id="content">
   <h2>Upcoming questions</h2>
   <ul class="questions"></ul>
-  <input>
+  <input type="text" class="new-question">
   <button class="add-question">Add</button>
 </div>

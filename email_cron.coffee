@@ -60,12 +60,11 @@ sendEmails = ->
   message_id = "<#{ QNoteKey }==#{ new Date().getTime() }@quicknotes.mailgun.net>"
   generateBody date, (emailBody) ->
     if emailBody
-      for email in peopleEmails
-        mailgun.sendEmail(email, from, subject, emailBody, message_id)
+      mailgun.sendEmail(process.env.TO, process.env.FROM, subject, emailBody, message_id)
 
 # Send emails every Friday at 8pm
 job = new cronJob
-  cronTime: '00 00 20 * * 6' # Run every Friday at 8pm MST (server is set to Utah time).
+  cronTime: '00 00 17 * * 4' # Run every Wednesday at 5pm MST (server is set to Utah time).
   onTick: sendEmails
 
 job.start()

@@ -10,7 +10,7 @@ module.exports = class QuestionsView extends Backbone.View
 
   events:
     'click button.add-question': 'addQuestion'
-    'keypress input': 'keypressHandler'
+    'keypress input.new-question': 'keypressHandler'
 
   render: ->
     @$el.html QuestionsTemplate()
@@ -26,7 +26,7 @@ module.exports = class QuestionsView extends Backbone.View
     @$('ul').on('sortupdate', => @saveNewOrder())
 
     _.defer =>
-      @$('input').focus()
+      @$('input.new-question').focus()
 
     @
 
@@ -34,7 +34,7 @@ module.exports = class QuestionsView extends Backbone.View
     if e.which is 13 then @addQuestion()
 
   addQuestion: ->
-    question = @$('input').val()
+    question = @$('input.new-question').val()
     @collection.create question: question, order: @collection.length
 
   saveNewOrder: ->

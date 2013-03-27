@@ -10,6 +10,7 @@ module.exports = class QuestionView extends Backbone.View
     'dblclick': 'editMode'
     'click button.save-question': 'saveQuestion'
     'click button.delete-question': 'deleteQuestion'
+    'keypress input': 'keypressHandler'
 
   render: ->
     @mode = 'normal'
@@ -21,14 +22,19 @@ module.exports = class QuestionView extends Backbone.View
   renderDblClick: ->
     @mode = 'edit'
     @$el.html "<div class='edit-mode'>
-      <input value='#{ @model.get('question') }' />
+      <input type='text'>
       <button class='save-question'>Save</button><button class='delete-question'>Delete Question</button>
       </div>
       "
 
+    @$('input').val(@model.get('question')).focus()
+
   editMode: ->
     if @mode is "normal"
       @renderDblClick()
+
+  keypressHandler:(e) ->
+    if e.which is 13 then @saveQuestion()
 
   saveQuestion: ->
     newQuestion = @$('input').val()
