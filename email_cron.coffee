@@ -2,7 +2,7 @@ cronJob = require('cron').CronJob
 moment = require "moment"
 mongoose = require('mongoose')
 mailgun = require('./sendEmail')
-db = mongoose.createConnection('mongodb://localhost/quicknotes')
+db = mongoose.createConnection(process.env.MONGO_CONNECT)
 
 # Array of emails to send questions to.
 # email where to send response
