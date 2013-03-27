@@ -18,6 +18,7 @@ QNoteKey = "gsmathews"
 getNextTwoQuestions = (callback) ->
   Question = db.model 'question'
   Question.find()
+    .where('sent').equals(null)
     .sort('order')
     .limit(2)
     .exec (err, questions) ->
@@ -26,7 +27,8 @@ getNextTwoQuestions = (callback) ->
       else
         # Delete the questions now as they've been sent.
         for question in questions
-          question.remove()
+          question.sent = new Date()
+          question.save()
         callback(null, questions)
 
 # Generate the HTML for the body of the email.

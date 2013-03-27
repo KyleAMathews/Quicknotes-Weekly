@@ -8,6 +8,7 @@
     "mongoose": "3.x.x",
     "moment": "1.x.x",
     "cron": "0.x.x",
+    "async": "0.1.x",
     "redis": "0.7.x"
   }
 }

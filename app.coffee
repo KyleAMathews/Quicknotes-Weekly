@@ -17,7 +17,7 @@ app.configure ->
   app.use(express.bodyParser())
   app.use(express.methodOverride())
   app.use(app.router)
-  app.use(express.static(__dirname + '/public'))
+  app.use(express.static(__dirname + '/app/public'))
 
 app.configure 'development', ->
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }))
@@ -25,13 +25,9 @@ app.configure 'development', ->
 app.configure 'production', ->
   app.use(express.errorHandler())
 
-# TODO this should launch the backbone admin ui
-app.get '/', (req, res) ->
-  res.render('questions')
-
 # API for admin api.
 app.get '/questions', questions_routes.getQuestions
-app.put '/questions', questions_routes.putQuestions
+app.put '/questions/:id', questions_routes.putQuestions
 app.post '/questions', questions_routes.postQuestions
 
 # Respond to incoming emails from Mailgun.

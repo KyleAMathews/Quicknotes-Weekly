@@ -29,7 +29,8 @@ h1 {
 }
 h2 {
   @include adjust-font-size-to(24px);
-  @include leader(0);
+  @include leader(1, 24px);
+  @include trailer(1, 24px);
 }
 h3 {
   @include adjust-font-size-to(21px);

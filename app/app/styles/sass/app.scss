@@ -4,11 +4,22 @@
 @import "typography";
 @import "layout";
 
-h1 {
-  @include border-radius(5px);
-  @include replace-text('http://brunch.io/images/brunch.png');
-  @include trailer(0.5);
 
-  height: 92px;
-  background-color: #91a2c0;
+ul.questions {
+  @include no-bullets();
+
+  cursor: pointer;
+  padding: 0;
+
+  li {
+    @include rhythm-borders(1px, 0.125);
+    @include trailer(0.5);
+
+    border-color: #ccc;
+
+    &.sortable-placeholder {
+      border: 1px dashed grey;
+      height: rhythm(1.2);
+    }
+  }
 }

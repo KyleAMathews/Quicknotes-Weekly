@@ -80,21 +80,26 @@
 })();
 
 window.require.register("app", function(exports, require, module) {
-  var Application;
+  var Application, Questions;
+
+  Questions = require('collections/questions');
 
   module.exports = Application = {
     initialize: function() {
-      var HomeView, Router;
-      HomeView = require('views/home_view');
+      var Router;
       Router = require('router');
-      this.homeView = new HomeView();
       this.router = new Router();
+      this.collections = {};
+      this.collections.questions = new Questions();
+      this.collections.questions.fetch();
       this.eventBus = _.extend({}, Backbone.Events);
       return this.eventBus.on('all', function(eventName, args) {
         return console.log('new event on the eventBus: ' + eventName);
       });
     }
   };
+
+  window.app = Application;
   
 });
 window.require.register("backbone_extensions", function(exports, require, module) {
@@ -128,6 +133,40 @@ window.require.register("backbone_extensions", function(exports, require, module
   };
   
 });
+window.require.register("collections/questions", function(exports, require, module) {
+  var Question, Questions,
+    __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  Question = require('models/question');
+
+  module.exports = Questions = (function(_super) {
+
+    __extends(Questions, _super);
+
+    function Questions() {
+      return Questions.__super__.constructor.apply(this, arguments);
+    }
+
+    Questions.prototype.url = '/questions';
+
+    Questions.prototype.model = Question;
+
+    Questions.prototype.comparator = function(question) {
+      return question.get('order');
+    };
+
+    Questions.prototype.notSent = function() {
+      return this.filter(function(question) {
+        return !(question.get('sent') != null);
+      });
+    };
+
+    return Questions;
+
+  })(Backbone.Collection);
+  
+});
 window.require.register("initialize", function(exports, require, module) {
   var application;
 
@@ -141,12 +180,30 @@ window.require.register("initialize", function(exports, require, module) {
   });
   
 });
-window.require.register("router", function(exports, require, module) {
-  var Router, application,
+window.require.register("models/question", function(exports, require, module) {
+  var Question,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  application = require('app');
+  module.exports = Question = (function(_super) {
+
+    __extends(Question, _super);
+
+    function Question() {
+      return Question.__super__.constructor.apply(this, arguments);
+    }
+
+    return Question;
+
+  })(Backbone.Model);
+  
+});
+window.require.register("router", function(exports, require, module) {
+  var QuestionsView, Router,
+    __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  QuestionsView = require('views/questions_view');
 
   module.exports = Router = (function(_super) {
 
@@ -157,11 +214,15 @@ window.require.register("router", function(exports, require, module) {
     }
 
     Router.prototype.routes = {
-      '': 'home'
+      '': 'questions'
     };
 
-    Router.prototype.home = function() {
-      return $('body').html(application.homeView.render().el);
+    Router.prototype.questions = function() {
+      var questionsView;
+      questionsView = new QuestionsView({
+        collection: app.collections.questions
+      });
+      return $('body').html(questionsView.render().el);
     };
 
     return Router;
@@ -169,34 +230,122 @@ window.require.register("router", function(exports, require, module) {
   })(Backbone.Router);
   
 });
-window.require.register("views/home_view", function(exports, require, module) {
-  var HomeTemplate, HomeView,
+window.require.register("views/question_view", function(exports, require, module) {
+  var QuestionView,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  HomeTemplate = require('/views/templates/home');
+  module.exports = QuestionView = (function(_super) {
 
-  module.exports = HomeView = (function(_super) {
+    __extends(QuestionView, _super);
 
-    __extends(HomeView, _super);
-
-    function HomeView() {
-      return HomeView.__super__.constructor.apply(this, arguments);
+    function QuestionView() {
+      return QuestionView.__super__.constructor.apply(this, arguments);
     }
 
-    HomeView.prototype.id = 'home-view';
+    QuestionView.prototype.tagName = 'li';
 
-    HomeView.prototype.render = function() {
-      this.$el.html(HomeTemplate());
+    QuestionView.prototype.initialize = function() {
+      return this.listenTo(this.model, 'all', this.render);
+    };
+
+    QuestionView.prototype.render = function() {
+      this.$el.html(this.model.get('question'));
+      this.$el.data('id', this.model.id);
       return this;
     };
 
-    return HomeView;
+    return QuestionView;
 
   })(Backbone.View);
   
 });
-window.require.register("views/templates/home", function(exports, require, module) {
+window.require.register("views/questions_view", function(exports, require, module) {
+  var QuestionView, QuestionsTemplate, QuestionsView,
+    __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  QuestionsTemplate = require('views/templates/questions');
+
+  QuestionView = require('views/question_view');
+
+  module.exports = QuestionsView = (function(_super) {
+
+    __extends(QuestionsView, _super);
+
+    function QuestionsView() {
+      return QuestionsView.__super__.constructor.apply(this, arguments);
+    }
+
+    QuestionsView.prototype.id = 'questions-view';
+
+    QuestionsView.prototype.initialize = function() {
+      return this.listenTo(this.collection, 'sync reset', this.render);
+    };
+
+    QuestionsView.prototype.events = {
+      'click button.add-question': 'addQuestion',
+      'keypress input': 'keypressHandler'
+    };
+
+    QuestionsView.prototype.render = function() {
+      var question, questionView, _i, _len, _ref,
+        _this = this;
+      this.$el.html(QuestionsTemplate());
+      _ref = this.collection.notSent();
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        question = _ref[_i];
+        questionView = this.addChildView(new QuestionView({
+          model: question
+        }));
+        this.$('ul.questions').append(questionView.render().el);
+      }
+      this.$('ul').off();
+      this.$('ul').sortable();
+      this.$('ul').on('sortupdate', function() {
+        return _this.saveNewOrder();
+      });
+      _.defer(function() {
+        return _this.$('input').focus();
+      });
+      return this;
+    };
+
+    QuestionsView.prototype.keypressHandler = function(e) {
+      if (e.which === 13) {
+        return this.addQuestion();
+      }
+    };
+
+    QuestionsView.prototype.addQuestion = function() {
+      var question;
+      question = this.$('input').val();
+      return this.collection.create({
+        question: question,
+        order: this.collection.length
+      });
+    };
+
+    QuestionsView.prototype.saveNewOrder = function() {
+      var id, ids, index, _i, _len,
+        _this = this;
+      ids = [];
+      this.$('ul li').each(function(index, result) {
+        return ids.push($(result).data('id'));
+      });
+      for (index = _i = 0, _len = ids.length; _i < _len; index = ++_i) {
+        id = ids[index];
+        this.collection.get(id).save('order', index);
+      }
+      return this.collection.sort();
+    };
+
+    return QuestionsView;
+
+  })(Backbone.View);
+  
+});
+window.require.register("views/templates/questions", function(exports, require, module) {
   module.exports = function (__obj) {
     if (!__obj) __obj = {};
     var __out = [], __capture = function(callback) {
@@ -237,7 +386,7 @@ window.require.register("views/templates/home", function(exports, require, modul
     (function() {
       (function() {
       
-        __out.push('<div id="content">\n  <h1>brunch</h1>\n  <h2>Welcome!</h2>\n  <ul>\n    <li><a href="http://brunch.readthedocs.org/">Documentation</a></li>\n    <li><a href="https://github.com/brunch/brunch/issues">Github Issues</a></li>\n    <li><a href="https://github.com/brunch/twitter">Twitter Example App</a></li>\n    <li><a href="https://github.com/brunch/todos">Todos Example App</a></li>\n  </ul>\n</div>\n');
+        __out.push('<div id="content">\n  <h2>Upcoming questions</h2>\n  <ul class="questions"></ul>\n  <input>\n  <button class="add-question">Add</button>\n</div>\n');
       
       }).call(this);
       

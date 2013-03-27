@@ -1,9 +1,10 @@
-application = require('app');
+QuestionsView = require('views/questions_view')
 
 module.exports = class Router extends Backbone.Router
 
   routes:
-    '': 'home'
+    '': 'questions'
 
-  home: ->
-    $('body').html application.homeView.render().el
+  questions: ->
+    questionsView = new QuestionsView collection: app.collections.questions
+    $('body').html questionsView.render().el
