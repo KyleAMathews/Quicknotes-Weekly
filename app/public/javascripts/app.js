@@ -246,13 +246,49 @@ window.require.register("views/question_view", function(exports, require, module
     QuestionView.prototype.tagName = 'li';
 
     QuestionView.prototype.initialize = function() {
-      return this.listenTo(this.model, 'all', this.render);
+      this.listenTo(this.model, 'all', this.render);
+      return this.listenTo(this.model, 'destroy', this.destroy);
+    };
+
+    QuestionView.prototype.events = {
+      'dblclick': 'editMode',
+      'click button.save-question': 'saveQuestion',
+      'click button.delete-question': 'deleteQuestion'
     };
 
     QuestionView.prototype.render = function() {
+      this.mode = 'normal';
       this.$el.html(this.model.get('question'));
       this.$el.data('id', this.model.id);
       return this;
+    };
+
+    QuestionView.prototype.renderDblClick = function() {
+      this.mode = 'edit';
+      return this.$el.html("<div class='edit-mode'>      <input value='" + (this.model.get('question')) + "' />      <button class='save-question'>Save</button><button class='delete-question'>Delete Question</button>      </div>      ");
+    };
+
+    QuestionView.prototype.editMode = function() {
+      if (this.mode === "normal") {
+        return this.renderDblClick();
+      }
+    };
+
+    QuestionView.prototype.saveQuestion = function() {
+      var newQuestion;
+      newQuestion = this.$('input').val();
+      this.model.save({
+        question: newQuestion
+      });
+      return this.render();
+    };
+
+    QuestionView.prototype.deleteQuestion = function() {
+      return this.model.destroy();
+    };
+
+    QuestionView.prototype.destroy = function() {
+      return this.remove();
     };
 
     return QuestionView;

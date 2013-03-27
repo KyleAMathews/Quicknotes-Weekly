@@ -27,8 +27,9 @@ app.configure 'production', ->
 
 # API for admin api.
 app.get '/questions', questions_routes.getQuestions
-app.put '/questions/:id', questions_routes.putQuestions
+app.put '/questions/:id', questions_routes.putQuestion
 app.post '/questions', questions_routes.postQuestions
+app.delete '/questions/:id', questions_routes.deleteQuestion
 
 # Respond to incoming emails from Mailgun.
 app.post '/mailgun', mailgunIntegration

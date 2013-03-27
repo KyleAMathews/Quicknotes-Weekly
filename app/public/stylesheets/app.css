@@ -586,3 +586,11 @@ ul.questions {
     ul.questions li.sortable-placeholder {
       border: 1px dashed grey;
       height: 1.8em; }
+
+.edit-mode input {
+  margin: 0.75em;
+  width: 90%; }
+.edit-mode button.save-question {
+  margin-left: 0.75em;
+  margin-bottom: 0.75em;
+  margin-right: 0.375em; }

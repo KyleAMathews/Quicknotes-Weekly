@@ -12,9 +12,9 @@ exports.getQuestions = (req, res) ->
         question.setValue('id', question.getValue('_id'))
       res.json questions
 
-exports.putQuestions = (req, res) ->
+exports.putQuestion = (req, res) ->
   Question = db.model 'question'
-  Question.findById(req.body.id, (err, result) ->
+  Question.findById(req.params.id, (err, result) ->
     for k,v of req.body
       result[k] = v
     result.save (err) ->
@@ -37,3 +37,14 @@ exports.postQuestions = (req, res) ->
     else
       console.log err
       res.json 500, { message: "Post wasn't saved correctly", error: err }
+
+exports.deleteQuestion = (req, res) ->
+  Question = db.model 'question'
+  Question.findById(req.params.id, (err, result) ->
+    result.remove (err, result) ->
+      unless err
+        res.json 'ok'
+      else
+        console.log err
+        res.json 500, 'question was not deleted correctly'
+  )
