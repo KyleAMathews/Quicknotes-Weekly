@@ -1,5 +1,8 @@
 mongoose = require('mongoose')
-mongoose.createConnection(process.env.MONGO_CONNECT)
+if process.env.NODE_ENV is 'production'
+  mongoose.createConnection(process.env.MONGOLAB_URI)
+else
+  mongoose.createConnection(process.env.MONGO_CONNECT)
 
 # Setup MongoDB schemas.
 Schema = mongoose.Schema

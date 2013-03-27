@@ -1,5 +1,8 @@
 mongoose = require('mongoose')
-db = mongoose.createConnection('mongodb://localhost/quicknotes')
+if process.env.NODE_ENV is 'production'
+  db = mongoose.createConnection(process.env.MONGOLAB_URI)
+else
+  db = mongoose.createConnection(process.env.MONGO_CONNECT)
 
 # Get questions page.
 

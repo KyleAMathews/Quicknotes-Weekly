@@ -2,7 +2,10 @@ cronJob = require('cron').CronJob
 moment = require "moment"
 mongoose = require('mongoose')
 mailgun = require('./sendEmail')
-db = mongoose.createConnection(process.env.MONGO_CONNECT)
+if process.env.NODE_ENV is 'production'
+  db = mongoose.createConnection(process.env.MONGOLAB_URI)
+else
+  db = mongoose.createConnection(process.env.MONGO_CONNECT)
 
 # Array of emails to send questions to.
 # email where to send response
