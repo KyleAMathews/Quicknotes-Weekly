@@ -28,9 +28,6 @@ app.put '/questions/:id', questions_routes.putQuestion
 app.post '/questions', questions_routes.postQuestions
 app.delete '/questions/:id', questions_routes.deleteQuestion
 
-# Respond to incoming emails from Mailgun.
-app.post '/mailgun', mailgunIntegration
-
 # Start the express server.
 port = process.env.PORT || 3000
 app.listen port, ->
