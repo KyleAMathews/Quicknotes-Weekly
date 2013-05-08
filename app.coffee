@@ -1,9 +1,12 @@
 # Module dependencies.
 require('./question_schema')
+require('./setting_schema')
 express = require('express')
 require('./email_cron')
+require('./settings')
 
 questions_routes = require('./routes/questions')
+settings_routes = require('./routes/settings')
 
 app = express()
 
@@ -27,6 +30,12 @@ app.get '/questions', questions_routes.getQuestions
 app.put '/questions/:id', questions_routes.putQuestion
 app.post '/questions', questions_routes.postQuestions
 app.delete '/questions/:id', questions_routes.deleteQuestion
+
+app.get '/settings', settings_routes.getSettings
+app.put '/settings/:id', settings_routes.putSetting
+app.post '/settings', settings_routes.postSettings
+app.delete '/settings/:id', settings_routes.deleteSetting
+
 
 # Start the express server.
 port = process.env.PORT || 3000

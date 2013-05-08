@@ -2,14 +2,7 @@ cronJob = require('cron').CronJob
 moment = require "moment"
 mongoose = require('mongoose')
 mailgun = require('./sendEmail')
-
-# Array of emails to send questions to.
-# email where to send response
-# the body of the email to send out
-# key of week for email address to send out
-
-peopleEmails = ['mathews.kyle@gmail.com']
-responseEmail = 'mathews.kyle@gmail.com'
+settings = require('./settings')
 
 QNoteKey = "gsmathews"
 
@@ -55,11 +48,10 @@ generateBody = (date, callback) ->
 sendEmails = ->
   date = moment().day(7).format("dddd, MMMM Do, YYYY")
   subject = "QuickNotes Weekly for " + date
-  from = 'Quicknotes Weekly <' + QNoteKey + '@quicknotes.mailgun.org>'
   message_id = "<#{ QNoteKey }==#{ new Date().getTime() }@quicknotes.mailgun.net>"
   generateBody date, (emailBody) ->
     if emailBody
-      mailgun.sendEmail(process.env.TO, process.env.FROM, subject, emailBody, message_id)
+      mailgun.sendEmail(settings.to_address, settings.from_address, subject, emailBody, message_id)
 
 # Send emails every Friday at 8pm
 job = new cronJob

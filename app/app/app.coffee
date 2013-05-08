@@ -1,4 +1,5 @@
 Questions = require 'collections/questions'
+Settings = require 'collections/settings'
 
 # Application bootstrapper.
 module.exports = Application =
@@ -9,6 +10,8 @@ module.exports = Application =
     @collections = {}
     @collections.questions = new Questions()
     @collections.questions.fetch()
+    @collections.settings = new Settings()
+    @collections.settings.fetch()
 
 
     # Add an eventBus for inter-module communications.

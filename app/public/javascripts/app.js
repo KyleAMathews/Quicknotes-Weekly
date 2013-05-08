@@ -80,9 +80,11 @@
 })();
 
 window.require.register("app", function(exports, require, module) {
-  var Application, Questions;
+  var Application, Questions, Settings;
 
   Questions = require('collections/questions');
+
+  Settings = require('collections/settings');
 
   module.exports = Application = {
     initialize: function() {
@@ -92,6 +94,8 @@ window.require.register("app", function(exports, require, module) {
       this.collections = {};
       this.collections.questions = new Questions();
       this.collections.questions.fetch();
+      this.collections.settings = new Settings();
+      this.collections.settings.fetch();
       this.eventBus = _.extend({}, Backbone.Events);
       return this.eventBus.on('all', function(eventName, args) {
         return console.log('new event on the eventBus: ' + eventName);
@@ -167,6 +171,30 @@ window.require.register("collections/questions", function(exports, require, modu
   })(Backbone.Collection);
   
 });
+window.require.register("collections/settings", function(exports, require, module) {
+  var Setting, Settings,
+    __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  Setting = require('models/setting');
+
+  module.exports = Settings = (function(_super) {
+
+    __extends(Settings, _super);
+
+    function Settings() {
+      return Settings.__super__.constructor.apply(this, arguments);
+    }
+
+    Settings.prototype.url = '/settings';
+
+    Settings.prototype.model = Setting;
+
+    return Settings;
+
+  })(Backbone.Collection);
+  
+});
 window.require.register("initialize", function(exports, require, module) {
   var application;
 
@@ -194,6 +222,24 @@ window.require.register("models/question", function(exports, require, module) {
     }
 
     return Question;
+
+  })(Backbone.Model);
+  
+});
+window.require.register("models/setting", function(exports, require, module) {
+  var Setting,
+    __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  module.exports = Setting = (function(_super) {
+
+    __extends(Setting, _super);
+
+    function Setting() {
+      return Setting.__super__.constructor.apply(this, arguments);
+    }
+
+    return Setting;
 
   })(Backbone.Model);
   
