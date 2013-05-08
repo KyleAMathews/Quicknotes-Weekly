@@ -1,8 +1,5 @@
 mongoose = require('mongoose')
-if process.env.NODE_ENV is 'production'
-  mongoose.createConnection(process.env.MONGOLAB_URI)
-else
-  mongoose.createConnection(process.env.MONGO_CONNECT)
+mongoose.connect('mongodb://localhost/quicknotes')
 
 # Setup MongoDB schemas.
 Schema = mongoose.Schema
