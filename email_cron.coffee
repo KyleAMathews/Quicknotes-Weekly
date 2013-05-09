@@ -3,12 +3,13 @@ moment = require "moment"
 mongoose = require('mongoose')
 mailgun = require('./sendEmail')
 settings = require('./settings')
+_ = require ('underscore')
 
 QNoteKey = "gsmathews"
 
 # Query Mongo for the next two questions.
 getNextTwoQuestions = (callback) ->
-  Question = db.model 'question'
+  Question = mongoose.model 'question'
   Question.find()
     .where('sent').equals(null)
     .sort('order')
@@ -63,4 +64,4 @@ job.start()
 nextRun = moment()
 console.log nextRun.add('ms', job.cronTime.getTimeout())
 console.log 'this job will next run ' +  nextRun.fromNow()
-#sendEmails()
+#_.delay sendEmails, 3000
