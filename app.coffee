@@ -38,6 +38,7 @@ app.delete '/settings/:id', settings_routes.deleteSetting
 
 
 # Start the express server.
-port = process.env.PORT || 3000
+args = process.argv.splice(2)
+if args[0]? then port = parseInt(args[0], 10) else port = 3000
 app.listen port, ->
   console.log("Listening on " + port)
