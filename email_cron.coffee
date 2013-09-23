@@ -27,8 +27,6 @@ getNextTwoQuestions = (callback) ->
 # Generate the HTML for the body of the email.
 generateBody = (date, callback) ->
   getNextTwoQuestions (err, questions) ->
-    # If there's no new questions, return false.
-    unless questions.length > 0 then return callback(false)
     # Log the error and quit.
     if err
       console.log err
@@ -39,9 +37,12 @@ generateBody = (date, callback) ->
       <ul>
       <li>What are three highlights from this past week (feel free to write more, if you so wish)?</li>\n
       """
-    for question in questions
-      emailBody += "<li>#{ question.question }</li>\n"
-    emailBody += "</ul>"
+    if questions.length > 0
+      for question in questions
+        emailBody += "<li>#{ question.question }</li>\n"
+      emailBody += "</ul>"
+    else
+      emailBody += "</ul><p><em>Oh noes! There weren't any questions added to Quicknotes this week. Help Mom and Kyle out and add some questions at http://mindmemes.org:3000</em></p>"
 
     callback emailBody
 
@@ -65,3 +66,5 @@ nextRun = moment()
 console.log nextRun.add('ms', job.cronTime.getTimeout())
 console.log 'this job will next run ' +  nextRun.fromNow()
 #_.delay sendEmails, 3000
+
+module.exports = sendEmails
