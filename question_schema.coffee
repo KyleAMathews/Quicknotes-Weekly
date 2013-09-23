@@ -1,5 +1,6 @@
+mongo_url = process.env.MONGO_URL ?  "mongodb://localhost/quicknotes"
 mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/quicknotes')
+mongoose.connect(mongo_url)
 
 # Setup MongoDB schemas.
 Schema = mongoose.Schema
