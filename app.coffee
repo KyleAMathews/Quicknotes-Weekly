@@ -2,7 +2,7 @@
 require('./question_schema')
 require('./setting_schema')
 express = require('express')
-require('./email_cron')
+sendEmail = require('./email_cron')
 require('./settings')
 
 questions_routes = require('./routes/questions')
@@ -35,6 +35,10 @@ app.get '/settings', settings_routes.getSettings
 app.put '/settings/:id', settings_routes.putSetting
 app.post '/settings', settings_routes.postSettings
 app.delete '/settings/:id', settings_routes.deleteSetting
+app.post '/send-email', (req, res) ->
+  sendEmail()
+  res.send 'ok'
+
 
 
 # Start the express server.
