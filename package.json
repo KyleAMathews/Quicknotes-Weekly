@@ -14,12 +14,12 @@
     "request": "2.x.x",
     "jade": "0.x.x",
     "mongoose": "3.x.x",
-    "moment": "1.x.x",
-    "cron": "0.x.x",
-    "async": "0.1.x",
-    "redis": "0.7.x",
+    "moment": "2.x.x",
+    "cron": "1.x.x",
+    "async": "0.x.x",
+    "redis": "0.x.x",
     "coffee-script": "~1.7.1",
-    "time": "~0.9.2",
-    "underscore": "~1.4.4"
+    "time": "0.x.x",
+    "underscore": "~1.x.x"
   }
 }
