@@ -9,7 +9,7 @@
   "scripts": {
     "start": "./node_modules/.bin/coffee index.coffee",
     "prestart": "(cd app; node_modules/.bin/brunch build)",
-    "postinstall": "(cd app; npm install; bower install)"
+    "postinstall": "(cd app; npm install; node_modules/.bin/bower install)"
   },
   "dependencies": {
     "express": "3.x.x",
