@@ -1,4 +1,4 @@
-config = require './config'
+config = require '../config'
 
 # Get settings page.
 
