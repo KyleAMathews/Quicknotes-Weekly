@@ -1,6 +1,12 @@
 {
   "name": "Quicknotes",
   "version": "0.0.1",
+  "engines": {
+    "node": "0.10.x"
+  },
+  "scripts": {
+    "start": "./node_modules/.bin/coffee index.coffee"
+  },
   "dependencies": {
     "express": "3.x.x",
     "request": "2.x.x",
