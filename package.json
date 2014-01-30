@@ -1,5 +1,7 @@
 {
   "name": "Quicknotes",
+  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "repository": "https://github.com/KyleAMathews/Quicknotes-Weekly",
   "version": "0.0.1",
   "engines": {
     "node": "0.10.x"
