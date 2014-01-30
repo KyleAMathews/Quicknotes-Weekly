@@ -1,6 +1,6 @@
+config = require './config'
 cronJob = require('cron').CronJob
 moment = require "moment"
-mongoose = require('mongoose')
 mailgun = require('./sendEmail')
 settings = require('./settings')
 _ = require ('underscore')
@@ -9,7 +9,7 @@ QNoteKey = "gsmathews"
 
 # Query Mongo for the next two questions.
 getNextTwoQuestions = (callback) ->
-  Question = mongoose.model 'question'
+  Question = config.mongoose.model 'question'
   Question.find()
     .where('sent').equals(null)
     .sort('order')

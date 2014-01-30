@@ -1,9 +1,9 @@
-mongoose = require('mongoose')
+config = require './config'
 
 # Get questions page.
 
 exports.getQuestions = (req, res) ->
-  Question = mongoose.model 'question'
+  Question = config.mongoose.model 'question'
   Question.find()
     .sort('order')
     .exec (err, questions) ->
@@ -12,7 +12,7 @@ exports.getQuestions = (req, res) ->
       res.json questions
 
 exports.putQuestion = (req, res) ->
-  Question = mongoose.model 'question'
+  Question = config.mongoose.model 'question'
   Question.findById(req.params.id, (err, result) ->
     for k,v of req.body
       result[k] = v
@@ -24,7 +24,7 @@ exports.putQuestion = (req, res) ->
   )
 
 exports.postQuestions = (req, res) ->
-  Question = mongoose.model 'question'
+  Question = config.mongoose.model 'question'
   # TODO rewrite using asyns.js so question
   # value the same (or is there some other way?)
   newQuestion = Question()
@@ -38,7 +38,7 @@ exports.postQuestions = (req, res) ->
       res.json 500, { message: "Post wasn't saved correctly", error: err }
 
 exports.deleteQuestion = (req, res) ->
-  Question = mongoose.model 'question'
+  Question = config.mongoose.model 'question'
   Question.findById(req.params.id, (err, result) ->
     result.remove (err, result) ->
       unless err

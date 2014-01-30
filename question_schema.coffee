@@ -1,9 +1,7 @@
-mongo_url = process.env.MONGO_URL ?  "mongodb://localhost/quicknotes"
-mongoose = require('mongoose')
-mongoose.connect(mongo_url)
+config = require './config'
 
 # Setup MongoDB schemas.
-Schema = mongoose.Schema
+Schema = config.mongoose.Schema
 
 QuestionSchema = new Schema (
   question: { type: String }
@@ -12,4 +10,4 @@ QuestionSchema = new Schema (
   order: { type: Number, default: 1000 }
 )
 
-mongoose.model 'question', QuestionSchema
+config.mongoose.model 'question', QuestionSchema

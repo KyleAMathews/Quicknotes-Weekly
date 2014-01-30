@@ -1,5 +1,6 @@
-mongoose = require('mongoose')
-Setting = mongoose.model 'setting'
+config = require './config'
+
+Setting = config.mongoose.model 'setting'
 Setting.find()
   .exec (err, settings) ->
     for setting in settings

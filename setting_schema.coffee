@@ -1,12 +1,12 @@
-mongoose = require('mongoose')
+config = require './config'
 
 # Setup MongoDB schemas.
-Schema = mongoose.Schema
+Schema = config.mongoose.Schema
 
 SettingSchema = new Schema (
   name: { type: String }
   value: { type: String }
 )
 
-mongoose.model 'setting', SettingSchema
+config.mongoose.model 'setting', SettingSchema
 

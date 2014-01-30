@@ -1,9 +1,9 @@
-mongoose = require('mongoose')
+config = require './config'
 
 # Get settings page.
 
 exports.getSettings = (req, res) ->
-  Setting = mongoose.model 'setting'
+  Setting = config.mongoose.model 'setting'
   Setting.find()
     .exec (err, settings) ->
       for setting in settings
@@ -11,7 +11,7 @@ exports.getSettings = (req, res) ->
       res.json settings
 
 exports.putSetting = (req, res) ->
-  Setting = mongoose.model 'setting'
+  Setting = config.mongoose.model 'setting'
   Setting.findById(req.params.id, (err, result) ->
     for k,v of req.body
       result[k] = v
@@ -23,7 +23,7 @@ exports.putSetting = (req, res) ->
   )
 
 exports.postSettings = (req, res) ->
-  Setting = mongoose.model 'setting'
+  Setting = config.mongoose.model 'setting'
   newSetting = Setting()
   for k,v of req.body
     newSetting[k] = v
@@ -35,7 +35,7 @@ exports.postSettings = (req, res) ->
       res.json 500, { message: "Post wasn't saved correctly", error: err }
 
 exports.deleteSetting = (req, res) ->
-  Setting = mongoose.model 'setting'
+  Setting = config.mongoose.model 'setting'
   Setting.findById(req.params.id, (err, result) ->
     result.remove (err, result) ->
       unless err
