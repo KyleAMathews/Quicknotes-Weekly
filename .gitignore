@@ -1,4 +1,4 @@
 node_modules
-app/public/
 npm-debug.log
 app/bower_components/
+app/public/javascripts/

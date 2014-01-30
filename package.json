@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "./node_modules/.bin/coffee index.coffee",
-    "prestart": "(cd app; node_modules/.bin/brunch build; cd app/styles; compass compile)"
+    "prestart": "(cd app; node_modules/.bin/brunch build)"
   },
   "dependencies": {
     "express": "3.x.x",
