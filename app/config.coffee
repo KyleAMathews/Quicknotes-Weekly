@@ -8,17 +8,7 @@ exports.config =
       # * map of ('outputFilePath': function that takes input path)
       joinTo:
         'javascripts/app.js': /^app/
-        'javascripts/vendor.js': /^vendor/
-      # Defines compilation order.
-      # `vendor` files will be compiled before other ones
-      # even if they are not present here.
-      order:
-        before: [
-          'vendor/scripts/console-helper.js',
-          'vendor/scripts/jquery-1.9.1.js',
-          'vendor/scripts/underscore.js',
-          'vendor/scripts/backbone.js',
-        ]
+        'javascripts/vendor.js': /^(bower_components|vendor)/
 
     templates:
       joinTo: 'javascripts/app.js'
