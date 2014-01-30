@@ -14,7 +14,6 @@
   "dependencies": {
     "express": "3.x.x",
     "request": "2.x.x",
-    "jade": "0.x.x",
     "mongoose": "3.x.x",
     "moment": "2.x.x",
     "cron": "1.x.x",
