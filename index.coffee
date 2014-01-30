@@ -12,6 +12,7 @@ app = express()
 
 # Configure Express.
 app.configure ->
+  app.set('port', process.env.PORT || 3000)
   app.set('views', __dirname + '/views')
   app.set('view engine', 'jade')
   app.use(express.bodyParser())
@@ -42,7 +43,5 @@ app.post '/send-email', (req, res) ->
 
 
 # Start the express server.
-args = process.argv.splice(2)
-if args[0]? then port = parseInt(args[0], 10) else port = 3000
-app.listen port, ->
-  console.log("Listening on " + port)
+app.listen app.get('port'), ->
+  console.log("Listening on " + app.get('port'))
