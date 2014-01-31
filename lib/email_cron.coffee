@@ -36,7 +36,7 @@ generateBody = (date, callback) ->
     emailBody = """
       <p><strong>QuickNotes Weekly</strong> for #{ date }</p>
       <ul>
-      <li>What are three highlights from this past week (feel free to write more, if you so wish)?</li>\n
+      <li>Tell everyone a bit about your week</li>\n
       """
     if questions.length > 0
       for question in questions
