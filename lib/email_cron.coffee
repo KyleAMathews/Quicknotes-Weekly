@@ -43,7 +43,7 @@ generateBody = (date, callback) ->
         emailBody += "<li>#{ question.question }</li>\n"
       emailBody += "</ul>"
     else
-      emailBody += "</ul><p><em>Oh noes! There weren't any questions added to Quicknotes this week. Help Mom and Kyle out and add some questions at http://mindmemes.org:3000</em></p>"
+      emailBody += "</ul><p><em>Oh noes! There weren't any questions added to Quicknotes this week</p>"
 
     callback emailBody
 
