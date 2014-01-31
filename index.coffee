@@ -40,8 +40,6 @@ app.post '/send-email', (req, res) ->
   sendEmail()
   res.send 'ok'
 
-
-
 # Start the express server.
 app.listen app.get('port'), ->
   console.log("Listening on " + app.get('port'))

@@ -2,8 +2,8 @@ request = require('request')
 querystring = require('querystring')
 url = require('url')
 
-mailgun_uri = url.parse('https://api.mailgun.net/v2/kyle.mailgun.org/messages')
-mailgun_uri.auth = 'api:key-4efruk6kp1y6nrafq7zhpoipbpmtv476'
+mailgun_uri = url.parse("https://api.mailgun.net/v2/#{ process.env.MAILGUN_DOMAIN }/messages")
+mailgun_uri.auth = "api:" + process.env.MAILGUN_API_KEY
 
 exports.sendEmail = (to, from, subject, body, message_id, in_reply_to = null, references = null) ->
   unless message_id? then return false

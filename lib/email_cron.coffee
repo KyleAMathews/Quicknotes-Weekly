@@ -64,7 +64,7 @@ job = new cronJob
 
 job.start()
 nextRun = moment()
-console.log nextRun.add('ms', job.cronTime.getTimeout())
+nextRun.add('ms', job.cronTime.getTimeout())
 console.log 'this job will next run ' +  nextRun.fromNow()
 #_.delay sendEmails, 3000
 
