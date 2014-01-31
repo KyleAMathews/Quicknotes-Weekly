@@ -556,18 +556,29 @@ ul {
   -webkit-box-sizing: border-box;
   box-sizing: border-box; }
 
-#questions-view {
+#container {
   *zoom: 1;
-  max-width: 36em;
-  _width: 36em;
+  max-width: 72em;
+  _width: 72em;
   padding-left: 1em;
   padding-right: 1em;
   margin-left: auto;
   margin-right: auto; }
-  #questions-view:after {
+  #container:after {
     content: "";
     display: table;
     clear: both; }
+  #container #questions {
+    width: 48.57143%;
+    float: left;
+    margin-right: 2.85714%;
+    display: inline; }
+  #container #settings {
+    width: 48.57143%;
+    float: right;
+    margin-right: 0;
+    *margin-left: -2em;
+    display: inline; }
 
 ul.questions {
   list-style: none;

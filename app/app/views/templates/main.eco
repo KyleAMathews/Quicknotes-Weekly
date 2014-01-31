@@ -1,0 +1,4 @@
+<div id="container">
+  <div id="questions"></div>
+  <div id="settings"></div>
+</div>

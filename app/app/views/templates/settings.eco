@@ -1,0 +1,10 @@
+<h2>Settings</h2>
+
+<form>
+<label>To address</label><br>
+<input type="text" class="js-to" value="<%- @collection.getByName('to_address')?.get('value') %>"><br>
+<label>From address</label><br>
+<input type="text" class="js-from" value="<%- @collection.getByName('from_address')?.get('value') %>"><br>
+<br>
+<input type="submit" value="Save">
+</form>

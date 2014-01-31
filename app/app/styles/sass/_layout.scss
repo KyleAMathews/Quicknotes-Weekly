@@ -5,12 +5,17 @@ $base-font-size: 14px;
 // Box-sizing fix + tell Susy to use border-box
 @include border-box-sizing;
 
-// Suzy defaults
-$total-columns: 7;
-$column-width: 4em;
-$gutter-width: 1em;
-$grid-padding: $gutter-width;
+$total-columns: 12; // 12 columns
+$column-width: 4em; // columns are 4em wide
+$gutter-width: 2em; // with 1em gutters
+$grid-padding: 1em; // and 1em padding on the grid container
 
-#questions-view {
+#container {
   @include container;
+  #questions {
+    @include span-columns(6);
+  }
+  #settings {
+    @include span-columns(6 omega);
+  }
 }
