@@ -1,5 +1,6 @@
 cronJob = require('cron').CronJob
 moment = require "moment"
+
 job = new cronJob
   cronTime: '00 00 20 * * 6' # Run every Friday at 8pm MST (server is set to Utah time).
   #cronTime: '* 10 22 * * 0' # Run every Friday at 8pm.

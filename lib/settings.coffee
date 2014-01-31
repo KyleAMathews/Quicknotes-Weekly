@@ -1,4 +1,4 @@
-config = require './config'
+config = require '../config'
 
 Setting = config.mongoose.model 'setting'
 Setting.find()

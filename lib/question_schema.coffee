@@ -1,4 +1,4 @@
-config = require './config'
+config = require '../config'
 
 # Setup MongoDB schemas.
 Schema = config.mongoose.Schema

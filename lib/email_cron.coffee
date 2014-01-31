@@ -1,9 +1,10 @@
-config = require './config'
 cronJob = require('cron').CronJob
 moment = require "moment"
+_ = require ('underscore')
+
+config = require '../config'
 mailgun = require('./sendEmail')
 settings = require('./settings')
-_ = require ('underscore')
 
 QNoteKey = "gsmathews"
 

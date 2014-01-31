@@ -1,9 +1,9 @@
-# Module dependencies.
-require('./question_schema')
-require('./setting_schema')
 express = require('express')
-sendEmail = require('./email_cron')
-require('./settings')
+
+require('./lib/question_schema')
+require('./lib/setting_schema')
+sendEmail = require('./lib/email_cron')
+require('./lib/settings')
 
 questions_routes = require('./routes/questions')
 settings_routes = require('./routes/settings')
