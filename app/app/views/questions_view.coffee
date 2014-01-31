@@ -15,14 +15,24 @@ module.exports = class QuestionsView extends Backbone.View
   render: ->
     @$el.html QuestionsTemplate()
 
-    for question in @collection.notSent()
+    for question, i in @collection.notSent()
+      if i is 0
+        @$('ul.questions').append("<h6>This week</h6>")
+      else if i is 2
+        @$('ul.questions').append("<h6>Next week</h6>")
+      else if i % 2 is 0
+        dateStr = moment().day(i/2*7).format("dddd, MMMM Do YYYY")
+        @$('ul.questions').append("<h6>#{ dateStr }</h6>")
+
       questionView = @addChildView new QuestionView(
         model: question
       )
       @$('ul.questions').append questionView.render().el
 
     @$('ul').off()
-    @$('ul').sortable()
+    @$('ul').sortable({
+        items: ':not(h6)'
+    })
     @$('ul').on('sortupdate', => @saveNewOrder())
 
     _.defer =>
