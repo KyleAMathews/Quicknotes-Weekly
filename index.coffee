@@ -43,3 +43,10 @@ app.post '/send-email', (req, res) ->
 # Start the express server.
 app.listen app.get('port'), ->
   console.log("Listening on " + app.get('port'))
+
+process.on('SIGINT', ->
+  process.ext()
+)
+process.on('SIGTERM', ->
+  process.ext()
+)
