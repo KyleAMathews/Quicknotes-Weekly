@@ -28,6 +28,7 @@ exports.sendEmail = (to, from, subject, body, message_id, in_reply_to = null, re
       'content-type': 'application/x-www-form-urlencoded'
     body: email
     (error, response, body) ->
+      if error then console.log error
       console.log response.statusCode
       console.log body
   )
