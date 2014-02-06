@@ -14,4 +14,4 @@ ADD . /app
 RUN cd app; ./node_modules/.bin/brunch build
 RUN cd app/app/styles; compass compile
 
-CMD ["npm", "start"]
+CMD ["./node_modules/.bin/coffee", "index.coffee"]
